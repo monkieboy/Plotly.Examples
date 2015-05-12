@@ -15,7 +15,7 @@
         let uri = new Uri("https://raw.githubusercontent.com/footballcsv/en-england/master/2010s/2013-14/1-premierleague.csv")
 
         let req = WebRequest.Create(uri);
-        req.ContentType <- "text\csv"
+        req.ContentType <- "text/csv"
         let res = req.GetResponse()
   
         let rdr = new StreamReader(res.GetResponseStream())
