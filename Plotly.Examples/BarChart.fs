@@ -1,11 +1,20 @@
 ﻿namespace Plotly.Examples.BarChart
 
+//#r "../packages/XPlot.GoogleCharts.1.1.7.0/lib/net45/XPlot.GoogleCharts.dll"
+//#load Plotly.Examples.PremierLeague.Data;;
 open XPlot.GoogleCharts
 open Plotly.Examples.PremierLeague.Data
+open Plotly.Examples.Definitions
 open System
 
+
+
+
 module BarChart =
-    let data = prem2013
+
+//    let data = load "http://localhost:18888/largeDataSet"
+    let data = load "http://localhost:18888/smallDataSet"
+
     let convertScore (s:String) =
         let split = s.Split([|"-"|], StringSplitOptions.None)
         Convert.ToInt32 split.[0], Convert.ToInt32 split.[1]
@@ -14,22 +23,23 @@ module BarChart =
     let rows = data.Rows
     
     
-    let convertedRows = 
+    let convertedResults = 
         rows 
-        |> Seq.map (fun r -> (r.Date,r.``Team 1``,r.``Team 2``, r.FT |> convertScore, r.HT |> convertScore))
-    
-    let calcGoals s =
-        let a, b = s
-        a + b
+        |> Seq.map (fun r -> (r.Date,r.``Team 1``,r.``Team 2``, r.FT |> convertScore, r.HT |> convertScore)) 
+        |> Seq.toList
     
     let goalsScored = 
-        let goals = 
-            convertedRows 
-            |> Seq.map (fun (_, _, _, f, _) -> f |> calcGoals )
-        goals |> Seq.sum
-        
+        let fullTimeResults = (convertedResults)
+        let goals = (0, fullTimeResults) ||> List.fold (fun i (_,_,_,(h,a), _) -> i + (h+a)) 
+        goals
 
-    printfn "%i goals scored in the season should equal 1063." goalsScored
+    let goalsScoredOverSeason =
+        let fullTimeResults = (convertedResults)
+        let goalsOverSeason = 
+            fullTimeResults
+            |> List.GroupBy date
+            |> List.Sumby (fun ints -> ints.fst + ints.snd)
+    let printAssertion = printfn "goals scored in the season should equal 1063, calculated: %i" goalsScored
 
 
 

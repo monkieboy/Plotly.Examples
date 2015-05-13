@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>d2cf3bc7-529d-46c0-84a7-caec734345f6</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>Plotly.Examples</RootNamespace>
     <AssemblyName>Plotly.Examples</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -50,10 +50,13 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="Prem2013.fs" />
+    <Compile Include="FixtureDefinitions.fs" />
     <Compile Include="BarChart.fs" />
     <None Include="packages.config" />
     <Content Include="Google.DataTable.Net.Wrapper.XML" />
     <None Include="app.config" />
+    <Compile Include="Program.fs" />
+    <None Include="sample.csv" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Deedle">

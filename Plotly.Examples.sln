@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Plotly.Examples", "Plotly.Examples\Plotly.Examples.fsproj", "{D2CF3BC7-529D-46C0-84A7-CAEC734345F6}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Data.Host", "Data.Host\Data.Host.fsproj", "{58DF0517-65E7-424D-B605-ED2AE6FD4915}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D2CF3BC7-529D-46C0-84A7-CAEC734345F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2CF3BC7-529D-46C0-84A7-CAEC734345F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2CF3BC7-529D-46C0-84A7-CAEC734345F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58DF0517-65E7-424D-B605-ED2AE6FD4915}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58DF0517-65E7-424D-B605-ED2AE6FD4915}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58DF0517-65E7-424D-B605-ED2AE6FD4915}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58DF0517-65E7-424D-B605-ED2AE6FD4915}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
