@@ -37,11 +37,13 @@ module BarChart =
 
         let fullTimeResults = (convertedResults)
 
-        let results = fullTimeResults |> Seq.map(fun (d, _, _, (h,a), _) -> (d,(h,a)))
+        let results = fullTimeResults |> Seq.map(fun (fixtureDate, _, _, fulltimeScore, _) -> (fixtureDate,fulltimeScore)) |> Seq.toList
 
         let groupedResults =
-            results
-            |> Seq.groupBy (fun fixture -> fixture |> fst)
+            let grouped = 
+                results
+                |> Seq.groupBy (fun fixture -> fixture |> fst)
+            grouped
             |> Seq.toList
 
         let sumify f =
@@ -68,12 +70,24 @@ module BarChart =
 //        let inputs = goalsScoredOverSeason |> List.map (fun _ r -> fst r) |> List.toSeq
 
         let series = goalsScoredOverSeason |> Seq.map(fun s -> fst s)
-        let inputs = goalsScoredOverSeason |> Seq.map(fun s -> snd s)
+        let inputs = goalsScoredOverSeason |> List.map(fun s -> snd s) 
+        let grouped r = r |> Seq.groupBy (fun (a,b) -> a)
+        let mappy s =
+            let r = s:seq<DateTime*(int*int)>
+            let res = grouped r
+            let goalsScoredOnDate =
+                res
+                |> Seq.map (fun (_, b) -> b |> Seq.map (fun (d,(h,a)) -> h+a)) |> (fun a -> a)
+                //|> Seq.toList
+            goalsScoredOnDate
 
-        inputs
-        |> Chart.Combo
-        |> Chart.WithLegend true
-        |> Chart.WithSize (600,300)
+        let sequence = 
+            inputs |> List.map (fun d -> mappy d)
+
+        //let dataInput = for (g, f) in goalsScoredOverSeason do let t = (f)
+
+        sequence
+        |> Chart.Calendar
         
 
    //let printAssertion = printfn "goals scored in the season should equal 1063, calculated: %i" goalsScored
