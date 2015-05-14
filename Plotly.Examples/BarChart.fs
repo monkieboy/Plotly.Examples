@@ -34,12 +34,49 @@ module BarChart =
         goals
 
     let goalsScoredOverSeason =
+
         let fullTimeResults = (convertedResults)
-        let goalsOverSeason = 
-            fullTimeResults
-            |> List.GroupBy date
-            |> List.Sumby (fun ints -> ints.fst + ints.snd)
-    let printAssertion = printfn "goals scored in the season should equal 1063, calculated: %i" goalsScored
+
+        let results = fullTimeResults |> Seq.map(fun (d, _, _, (h,a), _) -> (d,(h,a)))
+
+        let groupedResults =
+            results
+            |> Seq.groupBy (fun fixture -> fixture |> fst)
+            |> Seq.toList
+
+        let sumify f =
+            let (a:int),(b:int) = f
+            a+b
+
+
+//        let goalsOverSeason =
+//            let result = 
+//                groupedResults
+//                |> Seq.map (fun (r, l) -> l |> sumify) 
+//            result
+//        
+//        goalsOverSeason
+        groupedResults
+    
+    let mergify l:DateTime*(int*int) =
+        let a, (b,c) = l
+        (a, b+c)
+
+    let chart =
+//        let r = goalsScoredOverSeason |> List.map(fun l -> l |> mergify)
+//        let series = goalsScoredOverSeason |> List.map (fun l (h,a) -> (l, h+a)) |> List.toSeq
+//        let inputs = goalsScoredOverSeason |> List.map (fun _ r -> fst r) |> List.toSeq
+
+        let series = goalsScoredOverSeason |> Seq.map(fun s -> fst s)
+        let inputs = goalsScoredOverSeason |> Seq.map(fun s -> snd s)
+
+        inputs
+        |> Chart.Combo
+        |> Chart.WithLegend true
+        |> Chart.WithSize (600,300)
+        
+
+   //let printAssertion = printfn "goals scored in the season should equal 1063, calculated: %i" goalsScored
 
 
 
